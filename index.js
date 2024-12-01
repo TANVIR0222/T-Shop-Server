@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import helmet from "helmet";
 import { connectDB } from "./src/DB/connectDB.js";
+import userAuthRoute from "./src/router/user.auth.route.js";
 
 
 // middel
@@ -37,5 +38,5 @@ connectDB().then(() => (
 ))
 
 
-
-//AsAtssD2TBxYkoTK.   xrlTfeB1olFj9OgE
+// router
+app.use("/api/v1/auth", userAuthRoute); 
