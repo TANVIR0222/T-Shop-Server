@@ -4,6 +4,7 @@ import "dotenv/config";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import helmet from "helmet";
+import { connectDB } from "./src/DB/connectDB.js";
 
 
 // middel
@@ -28,8 +29,13 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
-})
 
-//
+connectDB().then(() => (
+    app.listen(port, () => {
+        console.log(`Example app listening on port ${port}`);
+    })
+))
+
+
+
+//AsAtssD2TBxYkoTK.   xrlTfeB1olFj9OgE
