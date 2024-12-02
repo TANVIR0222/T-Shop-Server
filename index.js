@@ -8,6 +8,7 @@ import { connectDB } from "./src/DB/connectDB.js";
 import userAuthRoute from "./src/router/user.auth.route.js";
 import imageUploadeRoute from "./src/router/uploade.route.js";
 import productRoute from "./src/router/product.router.js";
+import userRoute from "./src/router/user.route.js";
 
 
 // middel
@@ -42,5 +43,6 @@ connectDB().then(() => (
 
 // router
 app.use("/api/v1/auth", userAuthRoute); 
+app.use("/api/v1/user", userRoute); 
 app.use("/api/v1/image", imageUploadeRoute); 
 app.use("/api/v1/product",productRoute); 
