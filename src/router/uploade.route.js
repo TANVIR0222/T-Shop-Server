@@ -1,5 +1,5 @@
 import Router from 'express'
-import upload from '../../utils/multer.js';
+import upload from '../utils/multer.js';
 import uploadeCloudinary from '../controller/uploade.controller.js';
 
 const imageUploadeRoute = Router()
