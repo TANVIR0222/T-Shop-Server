@@ -54,10 +54,28 @@ export const deleteProduct = async (req, res) => {
         if(!product){
             return res.status(404).json({ message: "Product not found" });
         }
-        
+
         res.status(200).json({ message: "Product deleted successfully" , success: true ,error:false});
         
     } catch (error) {
         res.status(500).json({ msg: error.message || error, error: true, success: false }); 
+    }
+}
+
+export const singleProduct = async (req, res) => {
+
+    try {
+        const {id} = req.params;
+        if(!id){
+            return res.status(404).json({ message: "Id not found" });
+        }
+        const product = await productModel.findById(id)
+        if(!product){
+            return res.status(404).json({ message: "Product not found" });
+        }
+        res.status(200).json({ product, success: true, error: false });
+    } catch (error) {
+        res.status(500).json({ msg: error.message || error, error: true, success: false }); 
+
     }
 }
