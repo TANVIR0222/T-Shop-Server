@@ -30,3 +30,15 @@ export const addProduct = async (req, res) => {
     res.status(500).json({ msg: error.message || error, error: true, success: false });
   }
 };
+
+export const getAllProduct = async (req, res) => {
+    try {
+
+        const product = await productModel.find({})
+        res.status(200).json({ product, success: true, error: false});
+        
+    } catch (error) {
+        res.status(500).json({ msg: error.message || error, error: true, success: false });
+
+    }
+}
