@@ -41,7 +41,7 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await UserModel.findOne({ email })
+    const user = await UserModel.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: "Email not found" });
     }
@@ -54,19 +54,30 @@ export const login = async (req, res) => {
         .json({ msg: "Invalid password", error: true, success: false });
     }
     const token = createToken(user._id);
-    res.cookie('token', token,{
-        httpOnly:true,
-        secure:true,
-        sameSite:true
-      })
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: true,
+    });
 
     res.status(201).json({
       msg: "User Create Success",
       error: false,
       success: true,
       user: user,
-      token
+      token,
     });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ msg: error.message || error, error: true, success: false });
+  }
+};
+
+export const logout = async (req, res) => {
+  try {
+    res.clearCookie("token");
+    res.status(200).send({ message: " logout  success  " });
   } catch (error) {
     res
       .status(500)
