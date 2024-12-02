@@ -6,6 +6,8 @@ import morgan from "morgan";
 import helmet from "helmet";
 import { connectDB } from "./src/DB/connectDB.js";
 import userAuthRoute from "./src/router/user.auth.route.js";
+import productRoute from "./src/router/product.router.js";
+import imageUploadeRoute from "./src/router/uploade.route.js";
 
 
 // middel
@@ -40,3 +42,4 @@ connectDB().then(() => (
 
 // router
 app.use("/api/v1/auth", userAuthRoute); 
+app.use("/api/v1/image", imageUploadeRoute); 
