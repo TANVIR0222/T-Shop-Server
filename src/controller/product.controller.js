@@ -3,13 +3,11 @@ import imageUploadeCloudinary from "../utils/imageCloudinary.js";
 
 export const addProduct = async (req, res) => {
   try {
-    const {name,description,price,category,subCategory,sizes,populer} = req.body;
+    const {name,description,price,category,subCategory,sizes,populer , image} = req.body;
 
-    if (!name ||!description ||!price ||!category ||!subCategory ||!sizes ||!populer) {
+    if (!name ||!description ||!price ||!category ||!subCategory ||!sizes || !populer) {
         return res.status(400).json({ message: "Please fill all fields" });
     }
-    const image = req.file;
-    const productImage = await imageUploadeCloudinary(image.path);
 
     const data ={
         name,
@@ -20,7 +18,7 @@ export const addProduct = async (req, res) => {
         sizes,
         populer,
         date: Date.now(),
-        image:productImage.secure_url
+        image
     }
 
     const product = await productModel(data)
