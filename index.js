@@ -9,6 +9,7 @@ import userAuthRoute from "./src/router/user.auth.route.js";
 import imageUploadeRoute from "./src/router/uploade.route.js";
 import productRoute from "./src/router/product.router.js";
 import userRoute from "./src/router/user.route.js";
+import orderRoute from "./src/router/order.route.js";
 
 
 // middel
@@ -46,3 +47,4 @@ app.use("/api/v1/auth", userAuthRoute);
 app.use("/api/v1/user", userRoute); 
 app.use("/api/v1/image", imageUploadeRoute); 
 app.use("/api/v1/product",productRoute); 
+app.use("/api/v1/order" , orderRoute); 
