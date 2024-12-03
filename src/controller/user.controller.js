@@ -37,3 +37,19 @@ export const singleUser= async (req, res) => {
 
     }
 }
+
+
+export const allUser= async (req, res) => {
+
+    try {
+        
+        const user = await UserModel.find({}, 'id email role name').sort({createdAt : -1})
+        if(!user){
+            return res.status(404).json(user);
+        }
+        res.status(200).json({ user, success: true, error: false });
+    } catch (error) {
+        res.status(500).json({ msg: error.message || error, error: true, success: false }); 
+
+    }
+}
