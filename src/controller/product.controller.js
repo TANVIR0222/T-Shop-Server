@@ -1,5 +1,4 @@
 import productModel from "../Model/product.model.js";
-import imageUploadeCloudinary from "../utils/imageCloudinary.js";
 
 export const addProduct = async (req, res) => {
   try {
@@ -74,6 +73,32 @@ export const singleProduct = async (req, res) => {
         res.status(200).json({ product, success: true, error: false });
     } catch (error) {
         res.status(500).json({ msg: error.message || error, error: true, success: false }); 
+
+    }
+}
+
+export const updateProduct = async (req, res) => {
+    try {
+        const {id} = req.params;
+        const {name,description,price,category,subCategory,sizes,populer , image} = req.body;
+        
+        const data ={
+            name,
+            description,
+            price,
+            category,
+            subCategory,
+            sizes,
+            populer,
+            date: Date.now(),
+            image
+        }
+
+        const product = await productModel.findByIdAndUpdate(id, data, {new: true})
+        res.status(201).json({ message: "Product update successfully" , success: true , error:false  , product});
+
+    } catch (error) {
+        res.status(500).json({ msg: error.message || error, error: true, success: false });
 
     }
 }
