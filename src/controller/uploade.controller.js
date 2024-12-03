@@ -2,8 +2,6 @@ import imageUploadeCloudinary from "../utils/imageCloudinary.js";
 
 const uploadeCloudinary = async (req, res) => {
   try {
-    console.log(req.file);
-
     const file = req.file;
     const result = await imageUploadeCloudinary(file.path);
     res.status(201).json({
