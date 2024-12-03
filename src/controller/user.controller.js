@@ -4,7 +4,7 @@ export const updateRole = async (req, res) => {
 
    try {
     const {id} = req.params;
-    const {role} = req.body;
+    const {role} = req.body;    
     if (!role || !id) {
         return res.status(404).json({ message: "User not found" });
     }
@@ -51,5 +51,24 @@ export const allUser= async (req, res) => {
     } catch (error) {
         res.status(500).json({ msg: error.message || error, error: true, success: false }); 
 
+    }
+}
+
+export const deleteUser = async (req, res) => {
+    try {
+        const {id} = req.params;
+        if(!id){
+            return res.status(404).json({ message: "Product not found" });
+        }
+
+        const user = await UserModel.findByIdAndDelete(id)
+        if(!user){
+            return res.status(404).json({ message: "Product not found" });
+        }
+
+        res.status(200).json({ message: "Product deleted successfully" , success: true ,error:false});
+        
+    } catch (error) {
+        res.status(500).json({ msg: error.message || error, error: true, success: false }); 
     }
 }
