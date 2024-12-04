@@ -39,5 +39,5 @@ const preoductSchema = mongoose.Schema({
     },
 },{timestamps: true});
 
-const productModel = mongoose.model("product", preoductSchema);
+const productModel = mongoose.model("Product", preoductSchema);
 export default productModel;  //export the model
