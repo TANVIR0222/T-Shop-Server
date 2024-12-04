@@ -22,6 +22,10 @@ const cartSchema = new mongoose.Schema({
         type: String ,
         required: true
     },
+    quantity:{
+        type: Number ,
+        default: 1
+    },
 },{timestamps: true})
 const cartModel = mongoose.model('Cart', cartSchema);
 export default cartModel;  //export the model to use in other files
