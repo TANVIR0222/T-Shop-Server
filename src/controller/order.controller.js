@@ -17,7 +17,7 @@ export const placeOrder = async(req,res) => {
     const newOrder = await OrderModel.create(orderData);
     await newOrder.save();
 
-    await UserModel.findByIdAndUpdate(userId , {carData : {} })
+    // await UserModel.findByIdAndUpdate(userId , {carData : {} })
 
     res.status(201).json({ message: "order successfully" , success: true , error:false });
 
