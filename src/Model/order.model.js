@@ -20,7 +20,7 @@ const orderSchema = new mongoose.Schema({
     },
     status:{
         type: String,
-        // required: true,
+        enum: ["Order Placed", "Processing", "Shipped", "Delivered", "Cancelled"], // Allowed statuses
         default: 'Order Placed'
     },
     paymentMethod:{
@@ -33,5 +33,5 @@ const orderSchema = new mongoose.Schema({
         default: false
     }
 },{timestamps: true})
-const OrderModel = mongoose.model('Model', orderSchema);
+const OrderModel = mongoose.model('OrderModel', orderSchema);
 export default OrderModel;  //export the model to use in other files
