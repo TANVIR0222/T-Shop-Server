@@ -23,5 +23,45 @@ export const placeOrder = async(req,res) => {
 };
 export const placeOrderStripe = () => {};
 
-export const allOrders = () => {};
-export const updateStatus = () => {};
+export const allOrders = async(req,res) => {
+  try {
+    
+    const orders = await OrderModel.find({});
+    res.status(201).json(orders);
+
+  } catch (error) {
+    res.status(500).json({ msg: error.message || error, error: true, success: false });
+  }
+};
+export const singleOrders = async(req,res) => {
+  try {
+    const {id} = req.params;
+    const orders = await OrderModel.find({userId : id});
+    res.status(201).json(orders);
+
+  } catch (error) {
+    res.status(500).json({ msg: error.message || error, error: true, success: false });
+  }
+};
+
+export const updateStatus = async (req, res) => {
+
+  try {
+   const {id} = req.params;
+   const {status} = req.body;    
+   if (!status || !id) {
+       return res.status(404).json({ message: "User not found" });
+   }
+   
+   const updateRole = await OrderModel.findByIdAndUpdate(id , {status} , {new : true});
+   
+   res.status(200).json({ updateRole, success: true, error: false });
+
+  } catch (error) {
+   res.status(500).json({ msg: error.message || error, error: true, success: false }); 
+
+  }
+
+}
+
+// export const updateStatus = () => {};

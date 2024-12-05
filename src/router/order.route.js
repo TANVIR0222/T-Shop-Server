@@ -1,10 +1,11 @@
 import Router from 'express'
-import { allOrders, placeOrder, placeOrderStripe, updateStatus } from '../controller/order.controller.js';
+import { allOrders, placeOrder, placeOrderStripe, updateStatus , singleOrders} from '../controller/order.controller.js';
 
 const orderRoute = Router()
 
-orderRoute.post('/list' , allOrders)
-orderRoute.post('/status' , updateStatus)
+orderRoute.get('/list' , allOrders)
+orderRoute.get('/single-list/:id' , singleOrders)
+orderRoute.patch('/status/:id' , updateStatus)
 
 // for Payment
 orderRoute.post('/place' , placeOrder )
