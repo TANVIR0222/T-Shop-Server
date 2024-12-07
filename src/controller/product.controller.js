@@ -30,9 +30,7 @@ export const addProduct = async (req, res) => {
 
 export const getAllProduct = async (req, res) => {
     try {
-        const { category = '', subCategory = '', minPrice = '', maxPrice ='', search= '', page = 1, limit = 10 } = req.query;
-        
-
+        const { category = '', subCategory = '', search= '', page = 1, limit = 10 } = req.query;
         let filterProduct ={};
     
      // Filter by category
@@ -42,17 +40,7 @@ export const getAllProduct = async (req, res) => {
         if (subCategory && subCategory !== "alll") {
         filterProduct.subCategory = subCategory;
     }
-
-        // price calculate min & max
-        if (minPrice && maxPrice) {
-        const min = parseFloat(minPrice);
-        const max = parseFloat(maxPrice);
   
-        if (!isNaN(min) && !isNaN(max)) {
-          filter.price = { $get: min, $let: max };
-        }
-      }
-
       if(search){
         filterProduct.name = { $regex: search, $options: 'i' };
       }
@@ -135,3 +123,15 @@ export const updateProduct = async (req, res) => {
 
     }
 }
+
+export const allProduct = async (req, res) => {
+    try {
+
+        const {search = ''} = req.query;
+        const products = await productModel.find({name:{$regex: search ,$options:'i'}})
+
+        res.status(201).json(products);
+    } catch (error) {
+      res.status(500).json({ msg: error.message || error, error: true, success: false });
+    }
+  };
