@@ -4,7 +4,7 @@ export const addProduct = async (req, res) => {
   try {
     const {name,description,price,category,subCategory,sizes,populer , image} = req.body;
 
-    if (!name ||!description ||!price ||!category ||!subCategory ||!sizes || !populer) {
+    if (!name ||!description ||!price ||!category ||!subCategory ||!sizes) {
         return res.status(400).json({ message: "Please fill all fields" });
     }
 
@@ -18,7 +18,7 @@ export const addProduct = async (req, res) => {
         populer,
         date: Date.now(),
         image
-    }
+    }    
 
     const product = await productModel(data)
     await product.save();
@@ -30,11 +30,44 @@ export const addProduct = async (req, res) => {
 
 export const getAllProduct = async (req, res) => {
     try {
-
-        const product = await productModel.find({})
-        res.status(200).json({ product, success: true, error: false});
+        const { category = '', subCategory = '', minPrice = '', maxPrice ='', search= '', page = 1, limit = 10 } = req.query;
         
+
+        let filterProduct ={};
+    
+     // Filter by category
+     if (category && category !== "alll") {
+        filterProduct.category = category  ;
+    }
+        if (subCategory && subCategory !== "alll") {
+        filterProduct.subCategory = subCategory;
+    }
+
+        // price calculate min & max
+        if (minPrice && maxPrice) {
+        const min = parseFloat(minPrice);
+        const max = parseFloat(maxPrice);
+  
+        if (!isNaN(min) && !isNaN(max)) {
+          filter.price = { $get: min, $let: max };
+        }
+      }
+
+      if(search){
+        filterProduct.name = { $regex: search, $options: 'i' };
+      }
+
+        const product = await productModel.find(filterProduct)
+        .limit(parseInt(limit))
+        .skip((page - 1) * limit)
+        .exec();
+        
+        const total = await productModel.countDocuments();
+
+        res.status(201).json({product , totalPage: Math.ceil(total / limit) , currentPage: parseInt(page) ,success: true , error:false});
+
     } catch (error) {
+
         res.status(500).json({ msg: error.message || error, error: true, success: false });
 
     }
