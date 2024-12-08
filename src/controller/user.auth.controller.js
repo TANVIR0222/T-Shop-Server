@@ -8,7 +8,10 @@ const createToken = (id) => {
 
 export const register = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password ,avatar} = req.body;
+    if (!name || !email || !password || !avatar) {
+      return res.status(400).json({ message: "Please fill in all fields" });
+    }
 
     const existingUser = await UserModel.findOne({ email });
     if (existingUser) {
@@ -21,6 +24,7 @@ export const register = async (req, res) => {
       name,
       email,
       password: hashPass,
+      avatar
     };
     const newUser = new UserModel(data);
     await newUser.save();
