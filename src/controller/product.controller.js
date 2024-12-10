@@ -32,7 +32,7 @@ export const getAllProduct = async (req, res) => {
     try {
       const { category , subCategory , search='', page = 1, limit = 10 } = req.query;
         
-      let filterProduct =[];
+      let filterProduct ={};
     
      // Filter by category
      if (category && category !== "alll") {
@@ -137,17 +137,17 @@ export const updateProduct = async (req, res) => {
 }
 
 export const allProduct = async (req, res) => {
-    // try {
+    try {
 
-    //     const {search = ''} = req.query;
-    //     const products = await productModel.find({name:{$regex: search ,$options:'i'}})
+        const {search = ''} = req.query;
+        const products = await productModel.find({name:{$regex: search ,$options:'i'}})
 
-    //     res.status(201).json(products);
-    // } catch (error) {
-    //   console.log(error);
+        res.status(201).json(products);
+    } catch (error) {
+      console.log(error);
       
-    //   res.status(500).json({ msg: error.message || error, error: true, success: false });
-    // }
+      res.status(500).json({ msg: error.message || error, error: true, success: false });
+    }
   };
 
 
