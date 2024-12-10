@@ -30,8 +30,9 @@ export const addProduct = async (req, res) => {
 
 export const getAllProduct = async (req, res) => {
     try {
-        const { category = '', subCategory = '', search= '', page = 1, limit = 10 } = req.query;
-        let filterProduct ={};
+      const { category , subCategory , searchn, page = 1, limit = 10 } = req.query;
+        
+      let filterProduct =[];
     
      // Filter by category
      if (category && category !== "alll") {
