@@ -63,7 +63,7 @@ export const deleteCart = async (req, res) => {
 export const singleCart = async (req, res) => {
 
     try {
-        const {id} = req.params;
+        const {id} = req.params;               
         if(!id){
             return res.status(404).json({ message: "Id not found" });
         }
