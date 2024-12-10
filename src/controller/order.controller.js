@@ -44,7 +44,7 @@ export const placeOrderStripe = async (req, res) => {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
-      success_url: `${origin}/success`,
+      success_url: `https://t-shop-client-tanvir.vercel.app/success`,
       cancel_url: `${process.env.URL}/cancel`,
       line_items: [
         {
