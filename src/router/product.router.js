@@ -9,7 +9,6 @@ productRoute.get('/single-product/:id', singleProduct)
 productRoute.patch('/update-product/:id', updateProduct)
 productRoute.get('/product', allProduct)
 productRoute.get('/related-Product/:id', relatedProduct)
-productRoute.get('/all-product', getAllProduct)
-productRoute.get('/my-product', myProduct)
+productRoute.get('/my-product', getAllProduct)
 
 export default productRoute;  
