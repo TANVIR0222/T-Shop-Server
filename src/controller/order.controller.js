@@ -39,14 +39,12 @@ export const placeOrderStripe = async (req, res) => {
   try {
     const { userId, items, address, totalAmount } = req.body;
     
-    const  origin  = process.env.URL
-    console.log(origin);
-    
+    const { origin } = process.env.URL
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
-      success_url: `${origin}/`,
+      success_url: `${origin}/success`,
       cancel_url: `${process.env.URL}/cancel`,
       line_items: [
         {
