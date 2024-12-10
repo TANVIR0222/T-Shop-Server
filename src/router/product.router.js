@@ -1,5 +1,5 @@
 import Router from 'express'
-import { addProduct, allProduct, deleteProduct, getAllProduct, relatedProduct, singleProduct, updateProduct } from '../controller/product.controller.js';
+import { addProduct, allProduct, deleteProduct, getAllProduct, myProduct, relatedProduct, singleProduct, updateProduct } from '../controller/product.controller.js';
 
 const productRoute = Router()
 
@@ -10,5 +10,6 @@ productRoute.patch('/update-product/:id', updateProduct)
 productRoute.get('/product', allProduct)
 productRoute.get('/related-Product/:id', relatedProduct)
 productRoute.get('/all-product', getAllProduct)
+productRoute.get('/my-product', myProduct)
 
 export default productRoute;  

@@ -30,7 +30,7 @@ export const addProduct = async (req, res) => {
 
 export const getAllProduct = async (req, res) => {
     try {
-      const { category , subCategory , searchn, page = 1, limit = 10 } = req.query;
+      const { category , subCategory , search='', page = 1, limit = 10 } = req.query;
         
       let filterProduct =[];
     
@@ -56,11 +56,22 @@ export const getAllProduct = async (req, res) => {
         res.status(201).json({product , totalPage: Math.ceil(total / limit) , currentPage: parseInt(page) ,success: true , error:false});
 
     } catch (error) {
-
+      console.log(error);
+      
         res.status(500).json({ msg: error.message || error, error: true, success: false });
 
     }
 }
+// export const getAllProduct = async (req, res) => {
+//     try {
+//         const product = await productModel.find({})
+//         res.status(201).json({product});
+
+//     } catch (error) {      
+//         res.status(500).json({ msg: error.message || error, error: true, success: false });
+
+//     }
+// }
 
 export const deleteProduct = async (req, res) => {
     try {
@@ -126,15 +137,17 @@ export const updateProduct = async (req, res) => {
 }
 
 export const allProduct = async (req, res) => {
-    try {
+    // try {
 
-        const {search = ''} = req.query;
-        const products = await productModel.find({name:{$regex: search ,$options:'i'}})
+    //     const {search = ''} = req.query;
+    //     const products = await productModel.find({name:{$regex: search ,$options:'i'}})
 
-        res.status(201).json(products);
-    } catch (error) {
-      res.status(500).json({ msg: error.message || error, error: true, success: false });
-    }
+    //     res.status(201).json(products);
+    // } catch (error) {
+    //   console.log(error);
+      
+    //   res.status(500).json({ msg: error.message || error, error: true, success: false });
+    // }
   };
 
 
@@ -172,4 +185,19 @@ export const relatedProduct = async (req, res) => {
   } catch (error) {
     res.status(404).send({ message: "Error Product Not Found " });
 }
+};
+
+
+
+export const myProduct = async (req, res) => {
+  try {
+
+      const products = await productModel.find({})
+
+      res.status(201).json(products);
+  } catch (error) {
+    console.log(error);
+    
+    res.status(500).json({ msg: error.message || error, error: true, success: false });
+  }
 };
